@@ -1,0 +1,175 @@
+{% extends "app_layout.html" %} {% block title %} {{ user.NAME }} {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="../static/css/user.css" />
+{% endblock %} {% block page_title %}
+<h1 id="active_user">{{ user.NAME }}</h1>
+{% endblock %} {% block body %}
+<div class="wrapper">
+	<div class="user_details">
+		{% if (user.USER_PHOTO) is not none %}
+		<div class="image_and_btn">
+			<div class="show_image"><img src="{{ user.USER_PHOTO }}" alt="" /></div>
+			{% if current_user_id == user.USER_ID %}
+			<div class="upload_image_form">
+				<form
+					action="/upload_profile_photo"
+					method="POST"
+					enctype="multipart/form-data"
+					class="profile_picture"
+				>
+					<label id="upload_label" for="user_photo">
+						New image <i class="fa-solid fa-plus"></i>
+					</label>
+					<input
+						type="file"
+						accept="image/jpeg"
+						value=""
+						name="user_photo"
+						class="user_photo"
+						id="user_photo"
+						onchange="this.form.submit()"
+					/>
+				</form>
+			</div>
+			{% endif %}
+		</div>
+		{% else %}
+		<!-- if photo is NONE -->
+		<div class="upload-btn">
+			<div class="show_image"><i class="fa-solid fa-user"></i></div>
+			{% if current_user_id == user.USER_ID %}
+			<div class="upload_image_form">
+				<form
+					action="/upload_profile_photo"
+					method="POST"
+					enctype="multipart/form-data"
+					class="profile_picture"
+				>
+					<label id="upload_label" for="user_photo">
+						New image <i class="fa-solid fa-plus"></i>
+					</label>
+					<input
+						type="file"
+						accept="image/jpeg"
+						value=""
+						name="user_photo"
+						class="user_photo"
+						id="user_photo"
+						onchange="this.form.submit()"
+					/>
+				</form>
+			</div>
+			{% endif %}
+		</div>
+		{% endif %}
+		<div class="show_details">
+			<div class="songs_count">
+				<p>Songs: {{ song_count }}</p>
+				<p>Playlists: {{ playlists | length }}</p>
+			</div>
+			<div class="followers_count">
+				<p>Followers: {{ user.FOLLOWERS }}</p>
+				<p>Following: {{ user.FOLLOWING }}</p>
+			</div>
+			{% if current_user_id != user.USER_ID %}
+			<div class="follow_button">
+				<form action="/follow_request" method="POST" id="follow_form">
+					<input
+						type="text"
+						name="follower"
+						id="follower"
+						value="{{ current_user_id }}"
+					/>
+					<input
+						type="text"
+						name="following"
+						id="following"
+						value="{{ user.USER_ID }}"
+					/>
+					{% if follows | length == 0 %}
+					<input
+						type="submit"
+						class="btn follow-btn"
+						id="follow_btn"
+						value="Follow"
+					/>
+					{% else %}
+					<input
+						type="submit"
+						class="btn follow-btn"
+						id="follow_btn"
+						value="Following"
+					/>
+					{% endif %}
+				</form>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="bottom_half">
+		{% if current_user_id == user.USER_ID %}
+		<div class="release">
+			<a href="{{ url_for('create_album') }}">
+				<div class="release_album button btn btn-secondary" type="button">
+					Release album
+				</div>
+			</a>
+			<a href="{{ url_for('create_playlist') }}">
+				<div class="create_playlist button btn btn-secondary" type="button">
+					Create playlist
+				</div>
+			</a>
+		</div>
+		{% endif %}
+		<div class="show_playlists scroll">
+			{% if playlists | length < 1 and albums | length < 1 %}
+			<div class="display_text">
+				<p class="message">
+					No user music yet <i class="fa-solid fa-music"></i>
+				</p>
+			</div>
+			{% else %}
+			<ul class="list">
+				{% for playlist in playlists %}
+				<a
+					href="{{ url_for('playlist', playlist_id=playlist.PLAYLIST_ID) }}"
+					class="user_playlist_link"
+				>
+					<li class="item_style">
+						<div class="list_image">
+							{% if playlist.PLAYLIST_PHOTO is not none %}
+							<img src="{{ playlist.PLAYLIST_PHOTO }}" alt="playlist photo" />
+							{% else %}
+							<p id="no-playlist-photo"></p>
+							{% endif %}
+						</div>
+						<div class="list_data">
+							<p class="collection_name">{{ playlist.PLAYLIST_NAME }}</p>
+							<p>{{ playlist.PLAYLIST_YEAR }}</p>
+						</div>
+					</li>
+				</a>
+				{% endfor %} {% for album in albums %}
+				<a
+					href="{{ url_for('album', album_id=album.ALBUM_ID) }}"
+					class="user_playlist_link"
+				>
+					<li class="item_style">
+						<div class="list_image">
+							<img src="{{ album.ALBUM_PHOTO }}" alt="album photo" />
+						</div>
+						<div class="list_data">
+							<p class="collection_name">{{ album.ALBUM_NAME }}</p>
+							<p>{{ album.ALBUM_YEAR }}</p>
+						</div>
+					</li>
+				</a>
+
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</div>
+	</div>
+</div>
+<script src="/static/js/user.js"></script>
+{% endblock %}

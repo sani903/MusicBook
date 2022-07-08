@@ -1,0 +1,118 @@
+{% extends "app_layout.html" %} {% block title %} Home {% endblock %} {% block
+head %}
+<link rel="stylesheet" href="../static/css/home.css" />
+
+{% endblock %} {% block page_title %}
+<h1>Home</h1>
+{% endblock %} {% block body %}
+
+<div class="home">
+	<div class="upper">
+		<div class="upper_title">
+			<h3>Top Artists</h3>
+		</div>
+		<div class="upper_content">
+			{% if top_artists %}
+			<ul class="organise">
+				{% for top_artist in top_artists %}
+				<li class="list_item">
+					<a href="{{ url_for('user', user_id=top_artist.USER_ID ) }}">
+						<div class="artist_info">
+							<div class="artist_image">
+								{% if top_artist.USER_PHOTO is not none %}
+								<img
+									id="artist_photo"
+									src="{{ top_artist.USER_PHOTO }}"
+									alt=""
+								/>
+								{% else %}
+								<div class="default_icon">
+									<i id="user_default_photo" class="fa-solid fa-user"></i>
+								</div>
+								{% endif %}
+							</div>
+							<div class="artist_name">{{ top_artist.NAME }}</div>
+						</div>
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+			{% else %}
+			<h1>No top artists yet</h1>
+			{% endif %}
+		</div>
+	</div>
+	<div class="lower">
+		<div class="lower_title">
+			<h3>Latest Albums</h3>
+		</div>
+		<div class="lower_content">
+			{% for album in latest_albums %}
+			<a href="{{ url_for('album', album_id=album.ALBUM_ID ) }}">
+				<div class="liked_songs lower_size album_container">
+					<div class="lower_image">
+						<img
+							id="album_art"
+							src="{{ album.ALBUM_PHOTO }}"
+							alt="album photo"
+						/>
+					</div>
+					<div class="lower_text">
+						<p class="for_center">{{ album.ALBUM_NAME }}</p>
+						<p id="album_year">{{ album.ALBUM_YEAR }}</p>
+					</div>
+				</div>
+			</a>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col" id="left-col">
+				<h3>Quick Access</h3>
+				<div class="quick-collection">
+					{% for qa in quick_access %}
+					<a href="{{ url_for('playlist', playlist_id=qa.PLAYLIST_ID) }}">
+						<div
+							class="liked_songs lower_size album_container"
+							id="quick-access"
+						>
+							<div class="lower_image">
+								{% if qa.PLAYLIST_PHOTO is not none %}
+								<img
+									id="album_art"
+									src="{{ qa.PLAYLIST_PHOTO }}"
+									alt="album photo"
+								/>
+								{% else %}
+								<p id="no-image-case"></p>
+								{% endif %}
+							</div>
+							<div class="lower_text">
+								<p class="for_center">{{ qa.PLAYLIST_NAME }}</p>
+								<p id="album_year">{{ qa.PLAYLIST_YEAR }}</p>
+							</div>
+						</div>
+					</a>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="col" id="right-col">
+				<h3>Latest Songs</h3>
+				<div class="songs_list">
+					{% for song in latest_songs %}
+					<a href="{{ url_for('album', album_id=song.album_id ) }}">
+						<div class="song">
+							<p id="song-photo"><i class="fa-solid fa-music"></i></p>
+							<p id="song-name">{{ song.song_name }}</p>
+							<p id="song-album">{{ song.album_name }}</p>
+						</div>
+					</a>
+					<hr id="song-break" />
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

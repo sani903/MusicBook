@@ -1,0 +1,52 @@
+{% extends "app_layout.html" %}
+ 
+{% block title %} Playlist {% endblock %} 
+ 
+{%block head %}
+	<link rel="stylesheet" href="../static/css/results.css" />
+{% endblock %}
+ 
+{% block page_title %}
+	<h1>{{ playlist.PLAYLIST_NAME}}</h1>
+{% endblock %}
+ 
+{% block body %}
+	<div class="wrapper">
+		{% if playlist_owner.USER_ID == user_id %}
+		<form action="/delete_playlist" method="POST">
+			<input type="text" value="{{ playlist_id }}" name="playlist_id" hidden>
+			<button id="delete-btn" type="submit">DELETE PLAYLIST</button>
+		</form>
+		{% endif %}
+		{% if results %}
+			{% for result in results %}
+				<div class="results">
+						<div class="result">
+							<div class="album__art"><img src="{{ result.album_art }}" alt=""></div>
+							<div class="song__name">{{ result.song_name }}</div>
+							<div class="artist__name">
+								<a href="{{ url_for('user', user_id=result.artist_id ) }}">
+									{{ result.artist_name }}
+								</a>
+							</div>
+							<div class="album__name">
+								<a href="{{ url_for('album', album_id=result.album_id ) }}">
+									{{ result.album_name }}
+								</a>
+							</div>
+                            <div class="duration">{{ result.album_year }}</div>
+							{% if playlist_owner.USER_ID == user_id %}
+							<form action="/remove_song" method="POST">
+								<input type="text" value="{{ result.song_id }}" name="song_id" hidden>
+								<input type="text" value="{{ playlist_id }}" name="playlist_id" hidden>
+								<button id="remove-btn" type="submit"><i class="fa-solid fa-circle-minus"></i></button>
+							</form>
+							{% endif %}
+						</div>
+				</div>
+			{% endfor %}
+		{% else %}
+			<h1>Playlist is currently empty :(</h1>
+		{% endif %}
+	</div>
+{% endblock %}

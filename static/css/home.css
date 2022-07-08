@@ -1,0 +1,279 @@
+body a {
+	text-decoration: none;
+	color: white;
+}
+
+body a:hover {
+	color: #48cae4;
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* height: 100vh; */
+}
+
+.upper {
+	background-color: black;
+	padding-bottom: 1vh;
+	margin-bottom: 1vh;
+}
+
+.upper_title {
+	padding-left: 10vw;
+	padding-bottom: 3.5vh;
+}
+
+.organise {
+	display: flex;
+	justify-content: space-evenly;
+	list-style: none;
+	background-color: black;
+	margin: none;
+	padding: none;
+}
+
+.artist_info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.artist_image {
+	height: 170px;
+	width: 150px;
+	border-radius: 5px;
+	background: hsla(210, 71%, 55%, 1);
+	background: linear-gradient(
+		135deg,
+		hsla(210, 71%, 55%, 1) 0%,
+		hsla(334, 77%, 69%, 1) 100%
+	);
+}
+
+#artist_photo {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
+.default_icon {
+	height: inherit;
+	width: inherit;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#user_default_photo {
+	font-size: 5rem;
+}
+
+.lower {
+	margin-top: 5vh;
+}
+
+.lower_title {
+	padding-left: 10vw;
+	padding-bottom: 4vh;
+}
+
+.lower_content {
+	display: flex;
+	overflow: hidden;
+	overflow-x: scroll;
+	margin-left: 98px;
+	margin-right: 98px;
+}
+
+.lower_content::-webkit-scrollbar {
+	display: none;
+}
+
+.album_container {
+	margin-left: 1.7em;
+}
+
+.album_container:hover,
+.lower_text:hover {
+	cursor: pointer;
+	background-color: #48cae4;
+}
+
+.lower_size {
+	background-color: grey;
+	display: flex;
+	width: 250px;
+	height: 120px;
+	border-radius: 5px;
+}
+
+.lower_image {
+	border-radius: 5px 0 0 5px;
+	/* height: 125px; */
+	width: 125px;
+	background-color: grey;
+}
+
+#album_art {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 5px 0 0 5px;
+}
+
+.lower_text {
+	border-radius: 0 5px 5px 0;
+	height: 120px;
+	width: 125px;
+	background-color: rgb(224, 224, 224);
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+
+#album_year {
+	padding-top: 1em;
+}
+
+.lower_text_more {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0 5px 5px 0;
+	color: black;
+	width: 125px;
+	height: 120px;
+	background-color: rgb(224, 224, 224);
+}
+
+.lower_text p {
+	color: black;
+	margin: 0;
+}
+
+.for_center {
+	padding-top: 3.7vh;
+}
+
+.container {
+	margin-top: 6vh;
+	margin-bottom: 5vh;
+	padding-left: 10vw;
+}
+
+#left-col,
+#right-col,
+.row {
+	width: 100%;
+}
+
+.songs_list {
+	height: 250px;
+	/* width: 85%; */
+	width: 90%;
+	background-color: #fff;
+	overflow: hidden;
+	overflow-x: visible;
+	overflow-y: scroll;
+	border-radius: 5px;
+	margin-right: auto;
+	margin-top: 2em;
+}
+
+.songs_list::-webkit-scrollbar {
+	display: none;
+}
+
+.song {
+	height: 60px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	background-color: #fff;
+	transition: transform 100ms ease-in;
+}
+
+.song:hover {
+	cursor: pointer;
+	transform: scale(1.15);
+	background-color: #48cae4;
+}
+
+#song-photo {
+	height: 45px;
+	width: 45px;
+	margin: auto 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#song-name {
+	color: #000;
+	margin: auto 35px;
+	width: 120px;
+}
+
+#song-album {
+	color: #000;
+	margin: auto 35px;
+	width: 120px;
+}
+
+#song-break {
+	width: 100%;
+	margin: auto;
+	color: #5e5e5e;
+}
+
+#left-col {
+	margin-left: -4.5vh;
+}
+
+#quick-access {
+	margin-bottom: 1.2em;
+	margin-left: 0;
+}
+
+.quick-collection {
+	height: 250px;
+	overflow: hidden;
+	overflow-y: scroll;
+	/* margin-right: -5em; */
+	margin-top: 2em;
+}
+
+.quick-collection::-webkit-scrollbar {
+	display: none;
+}
+
+#right-col {
+	border-left: 0.7px solid #5e5e5e;
+	margin-right: 5.5vh;
+	margin-left: -5.5vh;
+	padding-left: 9.5vh;
+}
+
+.fa-music {
+	font-size: 2rem;
+	color: #000;
+}
+
+#no-image-case {
+	height: 100%;
+	width: 100%;
+	/* color: #48cae4; */
+	background: rgb(244, 156, 194);
+	background: radial-gradient(
+		circle,
+		rgba(244, 156, 194, 1) 0%,
+		rgba(72, 202, 228, 1) 100%
+	);
+	border-radius: 5px 0 0 5px;
+}
